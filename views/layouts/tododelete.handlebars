@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML</title>
+    <link rel="stylesheet" href="/static/css/bulma.css">
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+
+<div class="container m-6 text-center">
+
+<h3>¿ DESEA ELIMINAR el id = {{id}} ?</h3>
+
+
+
+<button type="button" class="btn btn-danger" onclick="del('{{id}}')" id="eliminar" >Eliminar</button>
+<a href="/">Volver</a>
+
+<script>
+  function del(id) { 
+    axios.delete("http://localhost:4000/todos/"+id)
+        .then((response) => {
+            console.log(response);
+            alert("Tarea eliminada.")
+            window.location.href = "/";
+          });
+  }
+</script>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<script>
+  $(document).ready(function () {
+    $("#formCreate").submit(async (e) => { 
+      e.preventDefault();
+      let nombre = $("#nombre").val();     
+      let descripcion = $("#descripcion").val();
+      axios.post("http://localhost:4000/todos", 
+        {
+          nombre: nombre,
+          descripcion: descripcion
+        }).then((response) => {
+          console.log(response);
+          alert("Tarea creada.")
+        }, (error) => {
+          console.log(error);
+          alert("Disculpe hubo un error registrando.")
+        });
+
+    });
+  });
+  </script>
+    
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
